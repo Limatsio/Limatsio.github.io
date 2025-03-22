@@ -1,0 +1,92 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra verticalmente */
+    align-items: center; /* Centra horizontalmente */
+    min-height: 100vh; /* Asegura que el body ocupe al menos el 100% de la altura de la pantalla */
+    background-color: #2c3e50;
+    color: white;
+    margin: 0;
+    padding: 20px;
+}
+
+.calculator {
+    background: #34495e;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 400px;
+    margin-bottom: 40px; /* Espacio debajo de la calculadora */
+}
+
+input, select {
+    width: 90%;
+    height: 40px;
+    font-size: 1.2em;
+    text-align: center;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+button {
+    width: 120px;
+    height: 40px;
+    font-size: 1em;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #1abc9c;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #16a085;
+}
+
+#result {
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: #ecf0f1;
+}
+
+.periodic-table-container {
+    text-align: center;
+    margin-bottom: 40px; /* Espacio debajo de la tabla periódica */
+}
+
+.periodic-table-container img {
+    width: 70%; /* Ajusta el ancho de la imagen */
+    max-width: 800px; /* Limita el tamaño máximo */
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.faq-container {
+    width: 80%;
+    max-width: 800px;
+    text-align: left;
+    background: #34495e;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    margin-bottom: 40px; /* Espacio debajo de las preguntas frecuentes */
+}
+
+.faq-container h3 {
+    margin-top: 0;
+}
+
+.faq-container p {
+    margin: 10px 0;
+}
+
+.faq-container code {
+    background: #2c3e50;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-family: monospace;
+}

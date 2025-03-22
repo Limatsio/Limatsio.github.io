@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Científica</title>
+    <link rel="stylesheet" href="calculadora.css"> <!-- Enlace al archivo CSS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.6.4/math.min.js"></script>
+</head>
+<body>
+    <!-- Calculadora -->
+    <div class="calculator">
+        <h2>Calculadora Científica</h2>
+        <select id="calculationType">
+            <option value="molarMass">Masa Molar</option>
+            <option value="equation">Ecuaciones</option>
+            <option value="polynomial">Polinomios</option>
+            <option value="matrix">Matrices</option>
+        </select>
+        <input type="text" id="inputField" placeholder="Ingrese ecuación o compuesto">
+        <br>
+        <button onclick="calculate()">Calcular</button>
+        <p id="result"></p>
+    </div>
+
+    <!-- Tabla periódica -->
+    <div class="periodic-table-container">
+        <h3>Tabla Periódica</h3>
+        <img src="tabla_periodica-negro.png" alt="Tabla Periódica">
+    </div>
+
+    <!-- Preguntas Frecuentes -->
+    <div class="faq-container">
+        <h3>Preguntas Frecuentes</h3>
+        <p><strong>1. ¿Qué es la masa molar?</strong></p>
+        <p>La masa molar es la masa de un mol de una sustancia, expresada en gramos por mol (g/mol). Por ejemplo, la masa molar del agua (H<sub>2</sub>O) es aproximadamente 18.02 g/mol.</p>
+        <p><strong>Ejemplo:</strong> Ingresa <code>H2O</code> en la calculadora para obtener la masa molar del agua.</p>
+
+        <p><strong>2. ¿Cómo resuelvo una ecuación?</strong></p>
+        <p>Puedes ingresar una ecuación matemática y la calculadora la simplificará. Por ejemplo, puedes resolver <code>2x + 3 = 7</code>.</p>
+        <p><strong>Ejemplo:</strong> Ingresa <code>2x + 3 = 7</code> y la calculadora te dará el valor de <code>x</code>.</p>
+
+        <p><strong>3. ¿Cómo simplifico un polinomio?</strong></p>
+        <p>Ingresa un polinomio y la calculadora lo simplificará. Por ejemplo, <code>x^2 + 2x + 1</code> se simplifica a <code>(x + 1)^2</code>.</p>
+        <p><strong>Ejemplo:</strong> Ingresa <code>x^2 + 2x + 1</code> para ver el resultado simplificado.</p>
+
+        <p><strong>4. ¿Cómo calculo el determinante de una matriz?</strong></p>
+        <p>Ingresa una matriz en formato <code>[[a, b], [c, d]]</code> y la calculadora te dará su determinante.</p>
+        <p><strong>Ejemplo:</strong> Ingresa <code>[[1, 2], [3, 4]]</code> para calcular el determinante.</p>
+    </div>
+
+    <script>
+        const masses = { H: 1.008, O: 16.00, C: 12.01, N: 14.01 };
+
+        function calculate() {
+            const type = document.getElementById("calculationType").value;
+            const input = document.getElementById("inputField").value;
+            let resultText = "";
+
+            switch (type) {
+                case "molarMass":
+                    resultText = calculateMolarMass(input);
+                    break;
+                case "equation":
+                    resultText = solveEquation(input);
+                    break;
+                case "polynomial":
+                    resultText = calculatePolynomial(input);
+                    break;
+                case "matrix":
+                    resultText = calculateMatrix(input);
+                    break;
+                default:
+                    resultText = "Tipo de cálculo no válido";
+            }
+
+            document.getElementById("result").innerText = resultText;
+        }
+
+        function calculateMolarMass(input) {
+            let totalMass = 0;
+            let match = input.match(/([A-Z][a-z]*)(\d*)/g);
+            if (match) {
+                match.forEach(part => {
+                    let element = part.match(/[A-Z][a-z]*/)[0];
+                    let count = part.match(/\d+/) ? parseInt(part.match(/\d+/)[0]) : 1;
+                    if (masses[element]) {
+                        totalMass += masses[element] * count;
+                    }
+                });
+                return `Masa molar: ${totalMass.toFixed(2)} g/mol`;
+            } else {
+                return "Entrada no válida. Ejemplo: H2O";
+            }
+        }
+
+        function solveEquation(input) {
+            try {
+                let result = math.simplify(input).toString();
+                return `Resultado: ${result}`;
+            } catch (error) {
+                return "Error en la ecuación. Asegúrate de usar un formato válido.";
+            }
+        }
+
+        function calculatePolynomial(input) {
+            try {
+                let poly = math.simplify(input).toString();
+                return `Polinomio simplificado: ${poly}`;
+            } catch (error) {
+                return "Entrada no válida. Asegúrate de usar un formato válido.";
+            }
+        }
+
+        function calculateMatrix(input) {
+            try {
+                let matrix = JSON.parse(input);
+                let determinant = math.det(matrix);
+                return `Determinante: ${determinant}`;
+            } catch (error) {
+                return "Entrada no válida. Use formato [[a,b],[c,d]]";
+            }
+        }
+    </script>
+</body>
+</html>
