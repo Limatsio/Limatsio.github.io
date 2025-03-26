@@ -18,13 +18,13 @@ body {
 
 .app-container {
     width: 100%;
-    max-width: 900px;
+    max-width: 1200px;
     display: flex;
     flex-direction: column;
     gap: 25px;
 }
 
-/* Chat Container */
+/* Chat Container - Aumenté la altura aquí */
 .chatbot-popup {
     width: 100%;
     background: #fff;
@@ -34,6 +34,26 @@ body {
                 0 2px 4px 0 rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
+    height: 700px;
+}
+
+/* Ajusté la altura del cuerpo del chat */
+.chat-body {
+    padding: 20px;
+    height: 580px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: #f9f9f9;
+}
+
+/* El resto del código permanece igual */
+.message-text {
+    padding: 12px 16px;
+    max-width: 85%;
+    font-size: 0.95rem;
+    line-height: 1.4;
 }
 
 .chat-header {
@@ -64,16 +84,6 @@ body {
     color: #fff;
     font-size: 1.1rem;
     font-weight: 500;
-}
-
-.chat-body {
-    padding: 20px;
-    height: 400px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    background: #f9f9f9;
 }
 
 .chat-body::-webkit-scrollbar {
@@ -107,11 +117,190 @@ body {
     align-items: flex-end;
 }
 
+.bot-message .message-text {
+    background: #F2F2FF;
+    color: #333;
+    border-radius: 13px 13px 13px 3px;
+}
+
+.user-message .message-text {
+    color: #fff;
+    background: #5350C4;
+    border-radius: 13px 13px 3px 13px;
+}
+
+.chat-footer {
+    background: #fff;
+    padding: 15px 20px 20px;
+    border-top: 1px solid #e0e0e0;
+}
+
+/* Estilo del pie de página */
+.footer {
+    background-color: #5350C4;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+/* Enlaces de redes sociales */
+.social-links {
+    margin-top: 10px;
+}
+
+.social-icon {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.social-icon:hover {
+    color: #f1f1f1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .chatbot-popup {
+        height: 600px;
+    }
+    
+    .chat-body {
+        height: 480px;
+    }
+    
+    .support-section {
+        padding: 15px;
+    }
+    
+    .message-text {
+        max-width: 80%;
+    }
+}
+/* Importing Google Fonts - Inter */
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: #f5f7fa;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* Chat Container - Aumenté la altura aquí */
+.chatbot-popup {
+    width: 100%;
+    background: #fff;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.1),
+                0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: 700px; /* Nueva altura aumentada (antes era automática) */
+}
+
+/* Ajusté la altura del cuerpo del chat */
+.chat-body {
+    padding: 20px;
+    height: 580px; /* Aumentado de 400px a 580px */
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: #f9f9f9;
+}
+
+/* El resto del código permanece igual */
 .message-text {
     padding: 12px 16px;
-    max-width: 75%;
+    max-width: 85%;
     font-size: 0.95rem;
     line-height: 1.4;
+}
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    background: #5350C4;
+    padding: 15px 20px;
+    justify-content: space-between;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-info {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.chatbot-logo {
+    height: 30px;
+    width: 30px;
+    stroke: #fff;
+    flex-shrink: 0;
+    background: transparent;
+    border-radius: 50%;
+}
+
+.logo-text {
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.chat-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-body::-webkit-scrollbar-thumb {
+    background-color: #ccccf5;
+    border-radius: 3px;
+}
+
+.message {
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+}
+
+.bot-message .bot-avatar {
+    height: 32px;
+    width: 32px;
+    stroke: #fff;
+    flex-shrink: 0;
+    margin-bottom: 2px;
+    background: #5350C4;
+    border-radius: 50%;
+    padding: 6px;
+}
+
+.user-message {
+    flex-direction: column;
+    align-items: flex-end;
 }
 
 .bot-message .message-text {
@@ -304,11 +493,19 @@ body {
         padding: 10px;
     }
     
+    .chatbot-popup {
+        height: 600px; /* Altura reducida para móviles */
+    }
+    
     .chat-body {
-        height: 300px;
+        height: 480px; /* Altura ajustada para móviles */
     }
     
     .support-section {
         padding: 15px;
+    }
+    
+    .message-text {
+        max-width: 80%;
     }
 }
