@@ -18,7 +18,15 @@ const userData = {
     }
 };
 
-const chatHistory = [];
+// Inicializa el historial de chat con un mensaje en español para asegurar que las respuestas sean en español
+const chatHistory = [
+    {
+        role: "user",
+        parts: [
+            { text: "Por favor, responde solo en español." }
+        ]
+    }
+];
 const initialInputHeight = messageInput.scrollHeight;
 
 // Scroll to bottom of chat
@@ -74,12 +82,12 @@ const generateBotResponse = async (incomingMessageDiv) => {
                 }
             ]
         })
-    }
+    };
 
     try {
         const response = await fetch(API_URL, requestOptions);
         const data = await response.json();
-        if(!response.ok) throw new Error(data.error.message);
+        if (!response.ok) throw new Error(data.error.message);
 
         const apiResponseText = data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, "$1").trim();
         messageElement.innerText = apiResponseText;
@@ -98,7 +106,7 @@ const generateBotResponse = async (incomingMessageDiv) => {
         incomingMessageDiv.classList.remove("thinking");
         scrollToLatestMessage();
     }
-}
+};
 
 // Handle outgoing messages
 const handleOutgoingMessage = (e) => {
@@ -164,10 +172,10 @@ fileInput.addEventListener("change", () => {
         userData.file = {
             data: base64String,
             mime_type: file.type
-        }
+        };
 
         fileInput.value = "";
-    }
+    };
     reader.readAsDataURL(file);
 });
 
