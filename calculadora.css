@@ -1,4 +1,4 @@
-/* Estilos base */
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap');
 
 * {
@@ -24,7 +24,7 @@ body {
     gap: 25px;
 }
 
-/* Contenedor principal (calculadora/chat) */
+
 .calculator-container,
 .chatbot-popup {
     width: 100%;
@@ -37,7 +37,7 @@ body {
     flex-direction: column;
 }
 
-/* Encabezado común */
+
 .calculator-header,
 .chat-header {
     display: flex;
@@ -71,7 +71,6 @@ body {
     font-weight: 500;
 }
 
-/* Cuerpo de la calculadora */
 .calculator-body {
     padding: 25px;
     display: flex;
@@ -160,7 +159,6 @@ body {
     font-size: 1.2rem;
 }
 
-/* Secciones de resultados */
 .results-container {
     display: flex;
     flex-direction: column;
@@ -225,8 +223,6 @@ body {
     color: #aaa;
     font-style: italic;
 }
-
-/* Estilos específicos del chat */
 .chatbot-popup {
     height: 700px;
 }
@@ -366,8 +362,6 @@ body {
 .file-upload-wrapper.file-uploaded:hover #file-cancel {
     display: block;
 }
-
-/* Secciones de soporte */
 .support-section {
     background: #fff;
     border-radius: 15px;
@@ -397,8 +391,6 @@ body {
     height: auto;
     border-radius: 8px;
 }
-
-/* FAQ Section */
 .faq-container {
     display: flex;
     flex-direction: column;
@@ -444,7 +436,6 @@ body {
     padding-bottom: 8px;
 }
 
-/* Notificación de copiado */
 .copy-notification {
     position: fixed;
     bottom: 20px;
@@ -464,7 +455,6 @@ body {
     opacity: 1;
 }
 
-/* Loading dots */
 .loading-dots {
     display: flex;
     gap: 4px;
