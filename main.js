@@ -1,15 +1,28 @@
+// Elementos de la calculadora
+const equationInput = document.getElementById("equation-input");
+const calculateButton = document.getElementById("calculate-button");
+const balancedEquation = document.getElementById("balanced-equation");
+const solutionSteps = document.getElementById("solution-steps");
+const copyEquationBtn = document.getElementById("copy-equation");
+const copyStepsBtn = document.getElementById("copy-steps");
+const toggleTableBtn = document.getElementById("toggle-table");
+const periodicTable = document.querySelector(".periodic-table .table-container");
+const exampleButtons = document.querySelectorAll(".example-btn");
+const copyNotification = document.getElementById("copy-notification");
+
+// Elementos del chat (si existen)
 const chatBody = document.querySelector(".chat-body");
 const messageInput = document.querySelector(".message-input");
 const sendMessageButton = document.querySelector("#send-message");
 const fileInput = document.querySelector("#file-input");
 const fileUploadWrapper = document.querySelector(".file-upload-wrapper");
 const fileCancelButton = document.querySelector("#file-cancel");
-const faqQuestions = document.querySelectorAll(".faq-question");
 
 // API Configuration
 const API_KEY = "AIzaSyC01ZtSqf7IMrHFZvPU9fP1Fyh0dFP_Nrw";
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
+// Datos del usuario y estado
 const userData = {
     message: null,
     file: {
@@ -18,23 +31,42 @@ const userData = {
     }
 };
 
-// Inicializa el historial de chat con un mensaje en español para asegurar que las respuestas sean en español
+// Historial de chat con instrucciones específicas para balanceo químico
 const chatHistory = [
     {
         role: "user",
         parts: [
-            { text: "Por favor, responde solo en español." }
+            { 
+                text: "Eres un experto en química. Cuando te proporcione una ecuación química, debes:" +
+                      "\n1. Mostrar la ecuación balanceada correctamente formateada (sin explicación adicional)" +
+                      "\n2. Luego, en una sección separada, explicar paso a paso cómo se balanceó la ecuación" +
+                      "\n\nEjemplo de formato requerido:" +
+                      "\n\nEcuación balanceada: 2H2 + O2 → 2H2O" +
+                      "\n\nPaso a paso:" +
+                      "\n1. Contar átomos en reactivos y productos" +
+                      "\n2. Balancear hidrógeno colocando coeficiente 2 en H2O" +
+                      "\n3. Verificar oxígenos y ajustar si es necesario" +
+                      "\n\nResponde solo en español y sigue estrictamente este formato."
+            }
         ]
     }
 ];
-const initialInputHeight = messageInput.scrollHeight;
 
-// Scroll to bottom of chat
+// Funciones auxiliares
 const scrollToLatestMessage = () => { 
-    chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: "smooth" }); 
+    if (chatBody) {
+        chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: "smooth" }); 
+    }
 };
 
-// Create message element
+const showNotification = (message) => {
+    copyNotification.textContent = message;
+    copyNotification.classList.add("show");
+    setTimeout(() => {
+        copyNotification.classList.remove("show");
+    }, 2000);
+};
+
 const createMessageElement = (content, ...classes) => {
     const div = document.createElement("div");
     div.classList.add("message", ...classes);
@@ -42,13 +74,19 @@ const createMessageElement = (content, ...classes) => {
     return div;
 };
 
-// Generate bot response
-const generateBotResponse = async (incomingMessageDiv) => {
-    const messageElement = incomingMessageDiv.querySelector(".message-text");
+// Función principal para generar respuestas
+const generateBotResponse = async (equation, isChat = false, incomingMessageDiv = null) => {
+    if (isChat) {
+        const messageElement = incomingMessageDiv.querySelector(".message-text");
+        messageElement.innerHTML = '<div class="loading-dots"><span></span><span></span><span></span></div>';
+    } else {
+        balancedEquation.innerHTML = '<div class="loading-dots"><span></span><span></span><span></span></div>';
+        solutionSteps.innerHTML = '<div class="loading-dots"><span></span><span></span><span></span></div>';
+    }
 
     chatHistory.push({
         role: "user",
-        parts: [{ text: userData.message }, ...(userData.file.data ? [{ inline_data: userData.file }] : [])]
+        parts: [{ text: `Balancea esta ecuación: ${equation}` }]
     });
 
     const requestOptions = {
@@ -57,7 +95,7 @@ const generateBotResponse = async (incomingMessageDiv) => {
         body: JSON.stringify({
             contents: chatHistory,
             generationConfig: {
-                temperature: 0.9,
+                temperature: 0.7,
                 topK: 1,
                 topP: 1,
                 maxOutputTokens: 2048,
@@ -89,8 +127,28 @@ const generateBotResponse = async (incomingMessageDiv) => {
         const data = await response.json();
         if (!response.ok) throw new Error(data.error.message);
 
-        const apiResponseText = data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, "$1").trim();
-        messageElement.innerText = apiResponseText;
+        const apiResponseText = data.candidates[0].content.parts[0].text;
+        
+        if (isChat) {
+            const messageElement = incomingMessageDiv.querySelector(".message-text");
+            messageElement.innerText = apiResponseText.replace(/\*\*(.*?)\*\*/g, "$1").trim();
+        } else {
+            // Procesar la respuesta para separar ecuación balanceada y pasos
+            const balancedMatch = apiResponseText.match(/Ecuación balanceada: (.+?)\n/);
+            const stepsMatch = apiResponseText.match(/Paso a paso:\n([\s\S]*)/);
+            
+            if (balancedMatch && balancedMatch[1]) {
+                balancedEquation.innerHTML = balancedMatch[1].trim();
+            } else {
+                balancedEquation.textContent = "No se pudo obtener la ecuación balanceada";
+            }
+            
+            if (stepsMatch && stepsMatch[1]) {
+                solutionSteps.innerHTML = stepsMatch[1].trim().replace(/\n/g, '<br>');
+            } else {
+                solutionSteps.textContent = "No se pudo obtener la explicación paso a paso";
+            }
+        }
 
         chatHistory.push({
             role: "model",
@@ -99,16 +157,41 @@ const generateBotResponse = async (incomingMessageDiv) => {
 
     } catch (error) {
         console.error(error);
-        messageElement.innerText = "Error al procesar la ecuación. Intenta nuevamente.";
-        messageElement.style.color = "#e74c3c";
+        if (isChat) {
+            const messageElement = incomingMessageDiv.querySelector(".message-text");
+            messageElement.innerText = "Error al procesar la ecuación. Intenta nuevamente.";
+            messageElement.style.color = "#e74c3c";
+        } else {
+            balancedEquation.textContent = "Error al procesar la ecuación";
+            solutionSteps.textContent = "Intenta nuevamente con una ecuación válida";
+        }
     } finally {
-        userData.file = {};
-        incomingMessageDiv.classList.remove("thinking");
-        scrollToLatestMessage();
+        if (isChat) {
+            userData.file = {};
+            incomingMessageDiv.classList.remove("thinking");
+            scrollToLatestMessage();
+        }
     }
 };
 
-// Handle outgoing messages
+// Funciones específicas para la calculadora
+const handleCalculate = () => {
+    const equation = equationInput.value.trim();
+    if (!equation) return;
+    
+    generateBotResponse(equation);
+};
+
+const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text).then(() => {
+        showNotification("¡Texto copiado al portapapeles!");
+    }).catch(err => {
+        console.error("Error al copiar: ", err);
+        showNotification("Error al copiar el texto");
+    });
+};
+
+// Funciones específicas para el chat
 const handleOutgoingMessage = (e) => {
     e.preventDefault();
     userData.message = messageInput.value.trim();
@@ -142,68 +225,99 @@ const handleOutgoingMessage = (e) => {
         const incomingMessageDiv = createMessageElement(messageContent, "bot-message", "thinking");
         chatBody.appendChild(incomingMessageDiv);
         scrollToLatestMessage();
-        generateBotResponse(incomingMessageDiv);
+        generateBotResponse(userData.message, true, incomingMessageDiv);
     }, 600);
 };
 
-// Event Listeners
-messageInput.addEventListener("keydown", (e) => {
-    if(e.key === "Enter" && !e.shiftKey && window.innerWidth > 768){
-        handleOutgoingMessage(e);
-    }
-});
-
-messageInput.addEventListener("input", () => {
-    messageInput.style.height = `${initialInputHeight}px`;
-    messageInput.style.height = `${messageInput.scrollHeight}px`;
-    document.querySelector(".chat-form").style.borderRadius = messageInput.scrollHeight > initialInputHeight ? "15px" : "25px";
-});
-
-fileInput.addEventListener("change", () => {
-    const file = fileInput.files[0];
-    if(!file) return;
+// Event Listeners para la calculadora
+if (calculateButton) {
+    calculateButton.addEventListener("click", handleCalculate);
+    equationInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+            handleCalculate();
+        }
+    });
     
-    const reader = new FileReader();
-    reader.onload = (e) => {
-        fileUploadWrapper.querySelector("img").src = e.target.result;
-        fileUploadWrapper.classList.add("file-uploaded");
-        const base64String = e.target.result.split(",")[1];
+    copyEquationBtn?.addEventListener("click", () => {
+        copyToClipboard(balancedEquation.textContent);
+    });
+    
+    copyStepsBtn?.addEventListener("click", () => {
+        copyToClipboard(solutionSteps.textContent);
+    });
+    
+    toggleTableBtn?.addEventListener("click", () => {
+        periodicTable.classList.toggle("expanded");
+        const icon = toggleTableBtn.querySelector("span");
+        icon.textContent = periodicTable.classList.contains("expanded") ? "unfold_less" : "unfold_more";
+    });
+    
+    exampleButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            equationInput.value = btn.dataset.equation;
+        });
+    });
+}
 
-        userData.file = {
-            data: base64String,
-            mime_type: file.type
+// Event Listeners para el chat
+if (messageInput) {
+    const initialInputHeight = messageInput.scrollHeight;
+    
+    messageInput.addEventListener("keydown", (e) => {
+        if(e.key === "Enter" && !e.shiftKey && window.innerWidth > 768){
+            handleOutgoingMessage(e);
+        }
+    });
+    
+    messageInput.addEventListener("input", () => {
+        messageInput.style.height = `${initialInputHeight}px`;
+        messageInput.style.height = `${messageInput.scrollHeight}px`;
+        document.querySelector(".chat-form").style.borderRadius = messageInput.scrollHeight > initialInputHeight ? "15px" : "25px";
+    });
+    
+    fileInput?.addEventListener("change", () => {
+        const file = fileInput.files[0];
+        if(!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            fileUploadWrapper.querySelector("img").src = e.target.result;
+            fileUploadWrapper.classList.add("file-uploaded");
+            const base64String = e.target.result.split(",")[1];
+    
+            userData.file = {
+                data: base64String,
+                mime_type: file.type
+            };
+    
+            fileInput.value = "";
         };
+        reader.readAsDataURL(file);
+    });
+    
+    fileCancelButton?.addEventListener("click", () => {
+        userData.file = {};
+        fileUploadWrapper.classList.remove("file-uploaded");
+    });
+    
+    document.querySelector("#file-upload")?.addEventListener("click", () => fileInput.click());
+    sendMessageButton?.addEventListener("click", handleOutgoingMessage);
+}
 
-        fileInput.value = "";
-    };
-    reader.readAsDataURL(file);
-});
-
-fileCancelButton.addEventListener("click", () => {
-    userData.file = {};
-    fileUploadWrapper.classList.remove("file-uploaded");
-});
-
-// FAQ functionality
-faqQuestions.forEach(question => {
+// FAQ functionality (común a ambas interfaces)
+document.querySelectorAll(".faq-question").forEach(question => {
     question.addEventListener("click", () => {
         const item = question.parentNode;
         const answer = question.nextElementSibling;
         
-        // Close all answers first
         document.querySelectorAll(".faq-answer").forEach(ans => {
             ans.style.maxHeight = null;
             ans.parentNode.classList.remove("active");
         });
         
-        // Open clicked answer if it was closed
         if (answer.style.maxHeight !== answer.scrollHeight + "px") {
             answer.style.maxHeight = answer.scrollHeight + "px";
             item.classList.add("active");
         }
     });
 });
-
-// Initialize chat controls
-document.querySelector("#file-upload").addEventListener("click", () => fileInput.click());
-sendMessageButton.addEventListener("click", handleOutgoingMessage);
