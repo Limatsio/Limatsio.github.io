@@ -5,71 +5,90 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora de Balances Químicos</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
-    <link rel="stylesheet" href="calculadora.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="app-container">
-        <!-- Chat Container -->
-        <div class="chatbot-popup">
-            <!-- Chat Header -->
-            <div class="chat-header">
+        <!-- Calculadora Mejorada -->
+        <div class="calculator-container">
+            <div class="calculator-header">
                 <div class="header-info">
-                    <svg class="chatbot-logo" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg class="calculator-logo" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
                     </svg>
                     <h2 class="logo-text">Calculadora de Balances Químicos</h2>
                 </div>
             </div>
 
-            <!-- Chat Body -->
-            <div class="chat-body">
-                <div class="message bot-message">
-                    <svg class="bot-avatar" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
-                    </svg>
-                    <div class="message-text">
-                        ¡Bienvenido a la Calculadora de Balances Químicos!<br><br>
-                        Escribe tu ecuación química y te ayudaré a balancearla.<br><br>
-                        Ejemplos:<br>
-                        • H2 + O → H2O<br>
-                        • Fe + O2 → Fe2O3<br>
-                        • C3H8 + O2 → CO2 + H2O
+            <div class="calculator-body">
+                <!-- Sección de entrada mejorada -->
+                <div class="input-section">
+                    <div class="input-wrapper">
+                        <input type="text" id="equation-input" placeholder="Ejemplo: H2 + O2 → H2O">
+                        <div class="example-equations">
+                            <span class="example-tag">Ejemplos:</span>
+                            <button class="example-btn" data-equation="H2 + O2 → H2O">H2 + O2 → H2O</button>
+                            <button class="example-btn" data-equation="Fe + O2 → Fe2O3">Fe + O2 → Fe2O3</button>
+                            <button class="example-btn" data-equation="C3H8 + O2 → CO2 + H2O">C3H8 + O2 → CO2 + H2O</button>
+                        </div>
+                    </div>
+                    <button id="calculate-button" class="calculate-btn">
+                        <span class="material-symbols-rounded">calculate</span>
+                        Balancear
+                    </button>
+                </div>
+                
+                <!-- Resultados con animación -->
+                <div class="results-container">
+                    <div class="result-section">
+                        <div class="section-header">
+                            <h3>Ecuación Balanceada</h3>
+                            <button id="copy-equation" class="icon-btn" title="Copiar ecuación">
+                                <span class="material-symbols-rounded">content_copy</span>
+                            </button>
+                        </div>
+                        <div id="balanced-equation" class="result-box">
+                            <div class="placeholder-text">La ecuación balanceada aparecerá aquí</div>
+                        </div>
+                    </div>
+                    
+                    <div class="steps-section">
+                        <div class="section-header">
+                            <h3>Paso a Paso</h3>
+                            <button id="copy-steps" class="icon-btn" title="Copiar explicación">
+                                <span class="material-symbols-rounded">content_copy</span>
+                            </button>
+                        </div>
+                        <div id="solution-steps" class="steps-box">
+                            <div class="placeholder-text">La explicación detallada del balanceo aparecerá aquí</div>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Chat Footer -->
-            <div class="chat-footer">
-                <form action="#" class="chat-form">
-                    <textarea placeholder="Escribe tu ecuación química aquí..." class="message-input" required></textarea>
-                    <div class="chat-controls">
-                        <div class="file-upload-wrapper">
-                            <input type="file" accept="images/*" id="file-input" hidden>
-                            <img src="#">
-                            <button type="button" id="file-upload" class="material-symbols-rounded">attach_file</button>
-                            <button type="button" id="file-cancel" class="material-symbols-rounded">close</button>
-                        </div>
-                        <button type="submit" id="send-message" class="material-symbols-rounded">arrow_upward</button>
-                    </div>
-                </form>
-            </div>
         </div>
 
-        <!-- Tabla Periódica -->
+        <!-- Tabla Periódica Mejorada -->
         <div class="support-section periodic-table">
-            <h3>Tabla Periódica de Referencia</h3>
+            <div class="section-header">
+                <h3>Tabla Periódica de Referencia</h3>
+                <button id="toggle-table" class="icon-btn" title="Expandir/Contraer">
+                    <span class="material-symbols-rounded">unfold_more</span>
+                </button>
+            </div>
             <div class="table-container">
-                <!-- Aquí puedes poner tu imagen de la tabla periódica -->
                 <img src="tabla_periodica-negro.png" alt="Tabla Periódica de los Elementos" class="periodic-table-img">
             </div>
         </div>
 
-        <!-- Preguntas Frecuentes -->
+        <!-- Preguntas Frecuentes Mejoradas -->
         <div class="support-section faq">
             <h3>Preguntas Frecuentes</h3>
             <div class="faq-container">
                 <div class="faq-item">
-                    <div class="faq-question">¿Cómo usar esta calculadora?</div>
+                    <div class="faq-question">
+                        <span>¿Cómo usar esta calculadora?</span>
+                        <span class="material-symbols-rounded">expand_more</span>
+                    </div>
                     <div class="faq-answer">
                         Simplemente escribe tu ecuación química en el campo de texto y presiona el botón de enviar. 
                         La calculadora te mostrará la ecuación balanceada correctamente.
@@ -77,7 +96,10 @@
                 </div>
                 
                 <div class="faq-item">
-                    <div class="faq-question">¿Qué es un balance químico?</div>
+                    <div class="faq-question">
+                        <span>¿Qué es un balance químico?</span>
+                        <span class="material-symbols-rounded">expand_more</span>
+                    </div>
                     <div class="faq-answer">
                         Es el proceso de ajustar los coeficientes estequiométricos en una ecuación química para que 
                         el número de átomos de cada elemento sea igual en ambos lados de la ecuación.
@@ -85,7 +107,10 @@
                 </div>
                 
                 <div class="faq-item">
-                    <div class="faq-question">¿Qué formato de ecuaciones acepta?</div>
+                    <div class="faq-question">
+                        <span>¿Qué formato de ecuaciones acepta?</span>
+                        <span class="material-symbols-rounded">expand_more</span>
+                    </div>
                     <div class="faq-answer">
                         Acepta ecuaciones con fórmulas químicas estándar. Usa "+" para separar compuestos y "→" o "=" 
                         para separar reactivos de productos.
@@ -93,7 +118,10 @@
                 </div>
                 
                 <div class="faq-item">
-                    <div class="faq-question">¿Puedo balancear ecuaciones orgánicas?</div>
+                    <div class="faq-question">
+                        <span>¿Puedo balancear ecuaciones orgánicas?</span>
+                        <span class="material-symbols-rounded">expand_more</span>
+                    </div>
                     <div class="faq-answer">
                         Sí, la calculadora puede balancear tanto compuestos inorgánicos como orgánicos, incluyendo 
                         hidrocarburos y otros compuestos complejos.
@@ -101,7 +129,10 @@
                 </div>
                 
                 <div class="faq-item">
-                    <div class="faq-question">¿Cómo interpretar los resultados?</div>
+                    <div class="faq-question">
+                        <span>¿Cómo interpretar los resultados?</span>
+                        <span class="material-symbols-rounded">expand_more</span>
+                    </div>
                     <div class="faq-answer">
                         Los números que aparecen delante de las fórmulas son los coeficientes que balancean la ecuación. 
                         No modifiques los subíndices de las fórmulas.
@@ -109,6 +140,11 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- Notificación de copiado -->
+    <div id="copy-notification" class="copy-notification">
+        ¡Texto copiado al portapapeles!
     </div>
 
     <script src="main.js"></script>
