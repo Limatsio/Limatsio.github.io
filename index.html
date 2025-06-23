@@ -1,1085 +1,329 @@
-:root {
-    --primary-color: #2c3e50; /* Azul oscuro - casi negro */
-    --secondary-color: #ffffff; /* Blanco puro */
-    --accent-color: #e74c3c; /* Rojo brillante para destacar */
-    --text-color: #333333; /* Gris oscuro para el texto principal */
-    --light-text: #7f8c8d; /* Gris claro para texto secundario */
-    --border-color: #e0e0e0; /* Gris suave para bordes */
-    --success-color: #27ae60; /* Verde para éxito */
-    --warning-color: #f39c12; /* Naranja para advertencia */
-    --error-color: #e74c3c; /* Rojo para error (igual que accent, puede ser bueno para consistencia) */
-    --info-color: #3498db; /* Azul para información */
-
-    /* Nuevas variables para sombras y transiciones si es necesario */
-    --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.08);
-    --shadow-medium: 0 5px 15px rgba(0, 0, 0, 0.1);
-    --transition-speed: 0.3s ease;
-}
-
-/* Base global */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Neue Helvetica', Arial, sans-serif;
-    color: var(--text-color);
-    line-height: 1.6;
-    background-color: var(--secondary-color);
-    scroll-behavior: smooth; /* Desplazamiento suave para anclas */
-}
-
-/* Header principal */
-.main-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-    box-shadow: var(--shadow-medium);
-    z-index: 1000;
-    padding: 15px 0;
-    border-bottom: 3px solid var(--accent-color); /* Toque de color */
-}
-
-.header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-.logo {
-    font-size: 26px; /* Ligeramente más grande */
-    font-weight: 700;
-    letter-spacing: 1.5px; /* Más espaciado */
-    color: var(--secondary-color);
-    text-transform: uppercase;
-}
-
-.logo span {
-    color: var(--accent-color);
-}
-
-.main-nav ul {
-    display: flex;
-    list-style: none;
-}
-
-.main-nav li {
-    margin-left: 30px; /* Más espacio entre ítems */
-}
-
-.main-nav a {
-    text-decoration: none;
-    color: var(--secondary-color);
-    font-size: 15px; /* Ligeramente más grande */
-    font-weight: 500;
-    transition: all var(--transition-speed);
-    padding: 5px 0;
-    border-bottom: 2px solid transparent;
-}
-
-.main-nav a:hover,
-.main-nav a.active {
-    border-bottom: 2px solid var(--accent-color);
-    color: var(--accent-color); /* Cambia también el color al pasar el mouse/activo */
-}
-
-/* Sección Hero */
-.hero {
-    background-image: linear-gradient(rgba(44, 62, 80, 0.85), rgba(44, 62, 80, 0.85)), url('https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
-    background-size: cover;
-    background-position: center;
-    height: 550px; /* Un poco más alto */
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Centrar contenido vertical y horizontalmente */
-    margin-top: 60px; /* Espacio para el header fijo */
-    text-align: center;
-    color: var(--secondary-color);
-}
-
-.hero-content {
-    max-width: 800px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-.hero-content h2 {
-    font-size: 48px; /* Más grande y llamativo */
-    font-weight: 300;
-    margin-bottom: 25px;
-    line-height: 1.2;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Sombra para mejor lectura */
-}
-
-.hero-content h2 span {
-    font-weight: 700;
-    color: var(--accent-color);
-}
-
-.hero-content p {
-    font-size: 19px; /* Un poco más grande */
-    margin-bottom: 40px;
-    max-width: 650px;
-    margin-left: auto;
-    margin-right: auto;
-    opacity: 0.9;
-}
-
-.hero-btn {
-    display: inline-block;
-    padding: 14px 35px; /* Más padding */
-    background-color: var(--accent-color);
-    color: var(--secondary-color);
-    text-decoration: none;
-    font-weight: 600; /* Más audaz */
-    border-radius: 6px; /* Bordes más suaves */
-    transition: all var(--transition-speed);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.hero-btn:hover {
-    background-color: #c0392b; /* Rojo más oscuro al pasar el mouse */
-    transform: translateY(-3px) scale(1.02); /* Efecto 3D sutil */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-}
-
-/* Secciones generales */
-.section-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 80px 20px;
-    background-color: var(--secondary-color);
-}
-
-.section-header {
-    text-align: center;
-    margin-bottom: 60px; /* Más espacio */
-}
-
-.section-header h3 {
-    font-size: 38px; /* Más grande */
-    font-weight: 300;
-    margin-bottom: 18px;
-    color: var(--primary-color);
-    position: relative; /* Para la línea decorativa */
-    padding-bottom: 10px;
-}
-
-.section-header h3::after { /* Línea decorativa debajo del título */
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 3px;
-    background-color: var(--accent-color);
-    border-radius: 2px;
-}
-
-.section-header h3 span {
-    color: var(--accent-color);
-    font-weight: 700;
-}
-
-.section-header p {
-    color: var(--light-text);
-    font-size: 17px;
-    max-width: 750px; /* Más ancho para el texto */
-    margin: 0 auto;
-    line-height: 1.7;
-}
-
-/* Contenedor de la calculadora */
-.calculator-container {
-    background-color: var(--secondary-color);
-    border-radius: 10px; /* Bordes más redondeados */
-    box-shadow: var(--shadow-medium);
-    overflow: hidden;
-    border: 1px solid var(--border-color); /* Borde sutil */
-}
-
-.calculator-header {
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-    padding: 20px 30px; /* Más padding */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.calculator-header h4 {
-    font-size: 20px; /* Ligeramente más grande */
-    font-weight: 500;
-}
-
-.calculator-tabs {
-    display: flex;
-    background-color: #f0f3f5; /* Fondo más claro para los tabs inactivos */
-    border-bottom: 1px solid var(--border-color);
-}
-
-.calc-tab {
-    padding: 15px 30px; /* Más padding para los tabs */
-    cursor: pointer;
-    font-size: 15px; /* Un poco más grande */
-    font-weight: 500;
-    border-bottom: 3px solid transparent;
-    transition: all var(--transition-speed);
-    color: var(--primary-color); /* Color de texto para tabs inactivos */
-}
-
-.calc-tab:hover {
-    background-color: #e2e6ea; /* Fondo más oscuro al pasar el mouse */
-}
-
-.calc-tab.active {
-    border-bottom: 3px solid var(--accent-color);
-    color: var(--accent-color);
-    background-color: var(--secondary-color);
-    font-weight: 600; /* Más audaz el activo */
-}
-
-.calculator-body {
-    padding: 30px;
-}
-
-.input-group {
-    margin-bottom: 25px;
-}
-
-.input-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 15px; /* Un poco más grande */
-    font-weight: 500;
-    color: var(--primary-color);
-}
-
-.input-group input,
-.input-group select,
-.input-group textarea {
-    width: 100%;
-    padding: 13px 18px; /* Más padding */
-    border: 1px solid var(--border-color);
-    border-radius: 5px; /* Bordes más redondeados */
-    font-size: 15px;
-    transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
-    background-color: #fdfdfd; /* Fondo ligero */
-}
-
-.input-group input::placeholder,
-.input-group textarea::placeholder {
-    color: var(--light-text);
-    opacity: 0.8;
-}
-
-.input-group input:focus,
-.input-group select:focus,
-.input-group textarea:focus {
-    border-color: var(--accent-color);
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2); /* Sombra al enfocar */
-}
-
-/* Contenedores para reactivos y productos */
-.concentration-inputs {
-    margin-bottom: 25px;
-}
-
-.input-row {
-    margin-bottom: 20px;
-}
-
-.input-row label {
-    display: block;
-    margin-bottom: 10px;
-    font-size: 15px;
-    font-weight: 500;
-    color: var(--primary-color);
-}
-
-/* ESTILO MEJORADO PARA LOS CONTENEDORES DE INPUT-PAIR */
-#reactants-inputs-container,
-#products-inputs-container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* Espacio entre los pares de input */
-    margin-bottom: 15px; /* Espacio antes del botón "Añadir" */
-}
-
-.input-pair {
-    display: flex;
-    align-items: center;
-    gap: 10px; /* Espacio entre los campos y el botón de eliminar */
-    background-color: #f9f9f9; /* Fondo ligero para cada par */
-    border: 1px solid #eee;
-    border-radius: 5px;
-    padding: 8px 12px;
-    transition: all var(--transition-speed);
-}
-
-.input-pair:focus-within { /* Efecto visual cuando algún input dentro del par está enfocado */
-    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.3); /* Un azul más suave */
-    border-color: var(--info-color);
-}
-
-
-.input-pair input {
-    flex: 1;
-    padding: 10px 12px; /* Reducir padding interno para que quepa mejor */
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    font-size: 14px;
-    background-color: var(--secondary-color);
-}
-
-.input-pair input:focus {
-    border-color: var(--info-color); /* Usa info-color para los inputs dentro del par */
-    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
-}
-
-.remove-btn {
-    background: none;
-    border: none;
-    color: var(--error-color); /* Color rojo para eliminar */
-    cursor: pointer;
-    font-size: 16px; /* Más visible */
-    padding: 5px;
-    transition: color var(--transition-speed), transform var(--transition-speed);
-}
-
-.remove-btn:hover {
-    color: #c0392b; /* Rojo más oscuro */
-    transform: scale(1.1);
-}
-
-.add-btn {
-    background: none;
-    border: 1px dashed var(--info-color); /* Borde punteado para indicar acción de añadir */
-    color: var(--info-color);
-    font-size: 14px;
-    cursor: pointer;
-    margin-top: 10px; /* Más espacio */
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Centrar el texto y el icono */
-    padding: 10px 15px;
-    border-radius: 5px;
-    transition: all var(--transition-speed);
-    width: auto; /* Ancho automático */
-}
-
-.add-btn i {
-    margin-right: 8px;
-}
-
-.add-btn:hover {
-    background-color: var(--info-color);
-    color: var(--secondary-color);
-    border-color: var(--info-color);
-    transform: translateY(-2px);
-}
-
-.primary-btn {
-    display: block;
-    width: 100%;
-    padding: 16px; /* Más grande */
-    background-color: var(--accent-color);
-    color: var(--secondary-color);
-    border: none;
-    border-radius: 6px;
-    font-size: 17px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all var(--transition-speed);
-    box-shadow: var(--shadow-light);
-}
-
-.primary-btn:hover {
-    background-color: #c0392b;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    transform: translateY(-2px);
-}
-
-/* Sección de Resultados */
-.results-container {
-    display: grid;
-    grid-template-columns: 1fr; /* Una columna por defecto */
-    gap: 30px; /* Más espacio entre tarjetas */
-    margin-top: 50px;
-}
-
-@media (min-width: 768px) {
-    .results-container {
-        grid-template-columns: 1.5fr 1fr; /* Dos columnas: resultados más anchos, pasos más estrechos */
-    }
-}
-
-.result-card, .steps-card {
-    background-color: var(--secondary-color);
-    border-radius: 10px;
-    box-shadow: var(--shadow-medium);
-    overflow: hidden;
-    border: 1px solid var(--border-color);
-}
-
-.result-header, .steps-header {
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-    padding: 20px 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.result-header h4, .steps-header h4 {
-    font-size: 20px;
-    font-weight: 500;
-}
-
-.result-value {
-    font-size: 30px; /* Más grande para el valor principal */
-    font-weight: 700;
-    color: var(--accent-color);
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-.result-body {
-    padding: 25px 30px; /* Más padding */
-    display: flex;
-    flex-direction: column;
-    gap: 15px; /* Espacio entre elementos del cuerpo del resultado */
-}
-
-/* Estilo para el textarea de descripción del problema */
-.result-body .input-group {
-    margin-bottom: 0; /* No margin-bottom extra, ya que el gap lo maneja */
-}
-
-#problem-description {
-    resize: vertical; /* Permite redimensionar verticalmente */
-    min-height: 90px; /* Altura mínima */
-    padding: 12px 15px;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    font-size: 14px;
-    transition: border var(--transition-speed);
-    width: 100%;
-    background-color: #fdfdfd;
-}
-
-#problem-description:focus {
-    border-color: var(--accent-color);
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2);
-}
-
-.result-equation {
-    font-size: 18px;
-    text-align: center;
-    margin: 15px 0; /* Ajuste de márgenes */
-    padding: 15px;
-    background-color: #f8f9fa;
-    border-radius: 6px;
-    font-family: 'Courier New', monospace;
-    color: var(--primary-color);
-    border: 1px dashed var(--border-color);
-}
-
-.detail-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; /* Alineación vertical */
-    margin-bottom: 12px; /* Un poco menos de espacio */
-    padding-bottom: 12px;
-    border-bottom: 1px dashed var(--border-color);
-    font-size: 15px;
-}
-
-.detail-item:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-
-.detail-label {
-    font-weight: 600; /* Más audaz */
-    color: var(--primary-color);
-}
-
-.detail-value {
-    text-align: right;
-    color: var(--text-color);
-}
-
-.steps-body {
-    padding: 25px 30px;
-    line-height: 1.8; /* Más espacio entre líneas */
-}
-
-.step {
-    margin-bottom: 18px; /* Más espacio entre pasos */
-    padding-left: 25px; /* Más espacio para el ícono */
-    position: relative;
-    font-size: 15px;
-    color: var(--text-color);
-}
-
-.step:before {
-    content: '\f058'; /* Icono de check circle */
-    font-family: 'Font Awesome 6 Free';
-    font-weight: 900;
-    position: absolute;
-    left: 0;
-    top: 2px; /* Ajuste vertical */
-    color: var(--accent-color); /* Color del icono */
-    font-size: 18px;
-}
-
-.step:last-child {
-    margin-bottom: 0;
-}
-
-/* Sección de Ejercicios y Teoría (similar layout) */
-.exercises-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); /* Min-width ajustado */
-    gap: 25px; /* Más espacio */
-    margin-top: 40px;
-}
-
-.exercise-card {
-    background-color: var(--secondary-color);
-    border-radius: 10px;
-    box-shadow: var(--shadow-medium);
-    overflow: hidden;
-    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
-    border: 1px solid var(--border-color);
-}
-
-.exercise-card:hover {
-    transform: translateY(-7px) scale(1.01); /* Efecto más pronunciado */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-}
-
-.exercise-header {
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-    padding: 18px 25px; /* Más padding */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.exercise-header h4 {
-    font-size: 18px;
-    font-weight: 500;
-}
-
-.exercise-body {
-    padding: 25px; /* Más padding */
-}
-
-.exercise-body p {
-    margin-bottom: 15px;
-    font-size: 15px;
-    color: var(--light-text);
-    line-height: 1.7;
-}
-
-.exercise-body ol, .exercise-body ul {
-    margin-left: 25px;
-    margin-bottom: 15px;
-    font-size: 15px;
-    color: var(--light-text);
-    line-height: 1.7;
-}
-
-/* Estilo específico para ecuaciones dentro de teoría */
-.exercise-body p[style*="font-family: 'Courier New'"] {
-    background-color: #f0f3f5;
-    padding: 10px 15px;
-    border-radius: 5px;
-    border: 1px dashed var(--border-color);
-    margin: 15px auto;
-    font-size: 16px;
-    overflow-x: auto; /* Para ecuaciones largas */
-    color: var(--primary-color);
-}
-
-
-.load-exercise {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: var(--accent-color);
-    color: var(--secondary-color);
-    border: none;
-    border-radius: 5px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all var(--transition-speed);
-    box-shadow: var(--shadow-light);
-    margin-top: 10px;
-}
-
-.load-exercise:hover {
-    background-color: #c0392b;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-}
-
-/* Tabla Periódica */
-.periodic-container {
-    margin-top: 40px;
-    text-align: center;
-    padding: 20px;
-}
-
-.periodic-table {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: var(--shadow-medium);
-    border: 1px solid var(--border-color);
-    display: block; /* Elimina espacio extra debajo de la imagen */
-    margin: 0 auto; /* Centra la imagen */
-}
-
-/* Footer */
-.main-footer {
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-    padding: 60px 0 30px; /* Más padding */
-    border-top: 4px solid var(--accent-color);
-}
-
-.footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Ajuste para columnas */
-    gap: 40px;
-}
-
-.footer-col h5 {
-    font-size: 18px; /* Más grande */
-    font-weight: 500;
-    margin-bottom: 25px; /* Más espacio */
-    color: var(--accent-color);
-    position: relative;
-}
-
-.footer-col h5::after { /* Línea decorativa para los títulos del footer */
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 0;
-    width: 40px;
-    height: 2px;
-    background-color: var(--info-color); /* Un toque azul */
-}
-
-.footer-col p {
-    font-size: 14px;
-    margin-bottom: 18px;
-    color: #bdc3c7;
-    line-height: 1.6;
-}
-
-.footer-col ul {
-    list-style: none;
-}
-
-.footer-col li {
-    margin-bottom: 12px;
-}
-
-.footer-col a {
-    color: #bdc3c7;
-    text-decoration: none;
-    font-size: 14px;
-    transition: color var(--transition-speed);
-}
-
-.footer-col a:hover {
-    color: var(--accent-color);
-    text-decoration: underline; /* Subrayado al pasar el mouse */
-}
-
-.footer-bottom {
-    text-align: center;
-    padding-top: 30px;
-    margin-top: 40px; /* Más espacio */
-    border-top: 1px solid #3d566e; /* Borde más oscuro */
-    font-size: 13px;
-    color: #95a5a6; /* Gris un poco más oscuro */
-}
-
-/* Chatbot */
-.chatbot-toggle {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 65px; /* Más grande */
-    height: 65px;
-    background-color: var(--accent-color);
-    color: var(--secondary-color);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 28px; /* Ícono más grande */
-    cursor: pointer;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
-    z-index: 1000;
-    transition: all var(--transition-speed);
-    border: 3px solid var(--secondary-color); /* Borde blanco para destacar */
-}
-
-.chatbot-toggle:hover {
-    transform: scale(1.15) rotate(5deg); /* Efecto de giro y escala */
-    background-color: #c0392b;
-}
-
-.chatbot-container {
-    position: fixed;
-    bottom: 110px; /* Más arriba que el botón */
-    right: 30px;
-    width: 380px; /* Más ancho */
-    max-height: 550px; /* Más alto */
-    background-color: var(--secondary-color);
-    border-radius: 12px; /* Bordes más redondeados */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25); /* Sombra más fuerte */
-    display: none; /* Controlado por JS */
-    flex-direction: column;
-    z-index: 1000;
-    overflow: hidden;
-    border: 1px solid var(--border-color);
-}
-
-.chatbot-header {
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-    padding: 18px 25px; /* Más padding */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #3d566e;
-}
-
-.chatbot-header h4 {
-    font-size: 17px;
-    font-weight: 500;
-}
-
-.close-chatbot {
-    background: none;
-    border: none;
-    color: var(--secondary-color);
-    font-size: 18px;
-    cursor: pointer;
-    transition: transform var(--transition-speed);
-}
-
-.close-chatbot:hover {
-    transform: rotate(90deg); /* Animación al cerrar */
-}
-
-.chatbot-messages {
-    flex: 1;
-    padding: 15px 20px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 12px; /* Espacio entre mensajes */
-    background-color: #f8f9fa; /* Fondo ligero para los mensajes */
-}
-
-/* Scrollbar personalizado para el chat */
-.chatbot-messages::-webkit-scrollbar {
-    width: 8px;
-}
-.chatbot-messages::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 10px;
-}
-.chatbot-messages::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 10px;
-}
-.chatbot-messages::-webkit-scrollbar-thumb:hover {
-    background: #555;
-}
-
-
-.chat-message {
-    max-width: 85%; /* Mensajes un poco más anchos */
-    padding: 12px 18px; /* Más padding */
-    border-radius: 20px; /* Más redondeado */
-    font-size: 14.5px; /* Ligeramente más grande */
-    line-height: 1.5;
-    word-wrap: break-word; /* Asegurar que las palabras largas se rompan */
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-}
-
-.user-message {
-    align-self: flex-end;
-    background-color: var(--accent-color);
-    color: var(--secondary-color);
-    border-bottom-right-radius: 8px; /* Esquinas asimétricas para la burbuja */
-}
-
-.bot-message {
-    align-self: flex-start;
-    background-color: #e9ecef; /* Un gris más claro para el bot */
-    color: var(--text-color);
-    border-bottom-left-radius: 8px;
-}
-
-.typing-indicator {
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Centrar puntos */
-    height: 20px; /* Altura para los puntos */
-}
-
-.typing-indicator span {
-    width: 8px;
-    height: 8px;
-    background-color: var(--text-color);
-    border-radius: 50%;
-    display: inline-block;
-    margin: 0 3px; /* Más espacio */
-    animation: bounce 1.4s infinite ease-in-out both;
-}
-
-.typing-indicator span:nth-child(1) {
-    animation-delay: -0.32s;
-}
-
-.typing-indicator span:nth-child(2) {
-    animation-delay: -0.16s;
-}
-
-@keyframes bounce {
-    0%, 80%, 100% { transform: scale(0); opacity: 0.7; }
-    40% { transform: scale(1); opacity: 1; }
-}
-
-.chatbot-input {
-    display: flex;
-    padding: 15px 20px; /* Más padding */
-    border-top: 1px solid var(--border-color);
-    background-color: var(--secondary-color);
-}
-
-.chatbot-input input {
-    flex: 1;
-    padding: 12px 18px; /* Más padding */
-    border: 1px solid var(--border-color);
-    border-radius: 25px; /* Más redondeado */
-    font-size: 15px;
-    transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
-}
-
-.chatbot-input input:focus {
-    border-color: var(--info-color);
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
-}
-
-#send-chatbot {
-    background-color: var(--accent-color);
-    color: var(--secondary-color);
-    border: none;
-    width: 45px; /* Más grande */
-    height: 45px;
-    border-radius: 50%;
-    margin-left: 12px; /* Más espacio */
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px; /* Ícono más grande */
-    transition: all var(--transition-speed);
-    box-shadow: var(--shadow-light);
-}
-
-#send-chatbot:hover {
-    background-color: #c0392b;
-    transform: scale(1.05);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-}
-
-/* Responsive Design */
-@media (max-width: 992px) {
-    .section-container {
-        padding: 60px 20px;
-    }
-    .footer-container {
-        grid-template-columns: 1fr; /* Columnas simples en pantallas medianas */
-        text-align: center;
-    }
-    .footer-col h5::after {
-        left: 50%;
-        transform: translateX(-50%);
-    }
-}
-
-
-@media (max-width: 768px) {
-    .main-nav {
-        display: none; /* Oculta la navegación en móviles */
-    }
-
-    .header-container {
-        justify-content: center; /* Centra el logo cuando no hay nav */
-    }
-
-    .hero {
-        height: 400px;
-        margin-top: 50px; /* Ajuste para header más compacto */
-    }
-
-    .hero-content h2 {
-        font-size: 38px;
-    }
-
-    .hero-content p {
-        font-size: 16px;
-    }
-
-    .section-header h3 {
-        font-size: 30px;
-    }
-
-    .section-header p {
-        font-size: 15px;
-    }
-
-    .calculator-body {
-        padding: 20px;
-    }
-
-    .results-container {
-        grid-template-columns: 1fr; /* Una sola columna para resultados y pasos */
-        gap: 25px;
-    }
-
-    .exercises-container {
-        grid-template-columns: 1fr; /* Una sola columna para ejercicios */
-    }
-    .exercise-card {
-        margin: 0 auto; /* Centrar tarjetas de ejercicios */
-    }
-
-    .periodic-table {
-        margin: 0 auto;
-    }
-
-    .chatbot-container {
-        width: 90%;
-        right: 5%;
-        bottom: 100px;
-        max-height: 60vh; /* Ocupa más altura en pantallas pequeñas */
-    }
-
-    .chatbot-toggle {
-        bottom: 20px;
-        right: 20px;
-        width: 55px;
-        height: 55px;
-        font-size: 24px;
-    }
-}
-
-@media (max-width: 480px) {
-    .main-header {
-        padding: 10px 0;
-    }
-    .logo {
-        font-size: 22px;
-    }
-    .hero {
-        height: 350px;
-    }
-    .hero-content h2 {
-        font-size: 30px;
-    }
-    .hero-content p {
-        font-size: 14px;
-    }
-    .hero-btn {
-        padding: 10px 25px;
-        font-size: 15px;
-    }
-    .section-container {
-        padding: 40px 15px;
-    }
-    .section-header h3 {
-        font-size: 26px;
-    }
-    .calculator-body {
-        padding: 15px;
-    }
-    .input-group input,
-    .input-group select,
-    .input-group textarea {
-        padding: 10px 12px;
-        font-size: 13px;
-    }
-    .primary-btn {
-        padding: 14px;
-        font-size: 15px;
-    }
-    .result-value {
-        font-size: 26px;
-    }
-    .result-body, .steps-body {
-        padding: 20px;
-    }
-    .detail-item, .step, .exercise-body p, .exercise-body ol, .exercise-body ul {
-        font-size: 14px;
-    }
-    .chatbot-container {
-        width: 100%;
-        right: 0;
-        bottom: 0;
-        border-radius: 0;
-        max-height: 80vh;
-    }
-    .chatbot-header {
-        padding: 15px 20px;
-    }
-    .chatbot-input {
-        padding: 10px 15px;
-    }
-    .chatbot-input input {
-        padding: 10px 15px;
-        font-size: 13px;
-    }
-    #send-chatbot {
-        width: 40px;
-        height: 40px;
-        font-size: 16px;
-    }
-    .chatbot-toggle {
-        bottom: 15px;
-        right: 15px;
-        width: 50px;
-        height: 50px;
-        font-size: 22px;
-    }
-}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChemBalance | Tema 20: Equilibrio Químico y Le Chatelier</title>
+    <link href="https://fonts.googleapis.com/css2?family=Neue+Helvetica:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="calculador.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo">CHEM<span>BALANCE</span></div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#calculadora" class="active">Calculadora</a></li>
+                    <li><a href="#ejercicios">Ejercicios</a></li>
+                    <li><a href="#tabla">Tabla Periódica</a></li>
+                    <li><a href="#teoria">Teoría</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h2>TEMA 20: <span>Equilibrio Químico y Le Chatelier</span></h2>
+            <p>Herramienta especializada para resolver problemas de equilibrio químico, incluyendo sistemas complejos como estireno-isopreno-estireno</p>
+            <a href="#calculadora" class="hero-btn">COMENZAR</a>
+        </div>
+    </section>
+
+    <section class="section-container" id="calculadora">
+        <div class="section-header">
+            <h3>Calculadora de <span>Equilibrio Químico</span></h3>
+            <p>Ingresa los datos de tu problema de equilibrio químico y obtén la solución paso a paso</p>
+        </div>
+
+        <div class="calculator-container">
+            <div class="calculator-header">
+                <h4>Ingresa los datos del problema</h4>
+            </div>
+            
+            <div class="calculator-tabs">
+                <div class="calc-tab active" data-tab="standard">Equilibrio estándar</div>
+                <div class="calc-tab" data-tab="lechatelier">Le Chatelier</div>
+                <div class="calc-tab" data-tab="polimeros">Polímeros</div>
+            </div>
+            
+            <div class="calculator-body">
+                <div class="input-group">
+                    <label for="equation">Ecuación química:</label>
+                    <input type="text" id="equation" placeholder="Ej: N2(g) + 3H2(g) ⇌ 2NH3(g)">
+                </div>
+                
+                <div class="concentration-inputs">
+                    <div class="input-row">
+                        <label>Reactivos:</label>
+                        <div id="reactants-inputs-container">
+                            <div class="input-pair">
+                                <input type="text" placeholder="Especie" class="species">
+                                <input type="number" placeholder="Conc. (M)" class="concentration">
+                                <button class="remove-btn" title="Eliminar reactivo"><i class="fas fa-times"></i></button>
+                            </div>
+                        </div>
+                        <button class="add-btn" id="add-reactant-btn"><i class="fas fa-plus"></i> Añadir reactivo</button>
+                    </div>
+                    
+                    <div class="input-row">
+                        <label>Productos:</label>
+                        <div id="products-inputs-container">
+                            <div class="input-pair">
+                                <input type="text" placeholder="Especie" class="species">
+                                <input type="number" placeholder="Conc. (M)" class="concentration">
+                                <button class="remove-btn" title="Eliminar producto"><i class="fas fa-times"></i></button>
+                            </div>
+                        </div>
+                        <button class="add-btn" id="add-product-btn"><i class="fas fa-plus"></i> Añadir producto</button>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="calc-target">Calcular:</label>
+                    <select id="calc-target">
+                        <option value="Kc">Constante de equilibrio (Kc)</option>
+                        <option value="concentration">Concentración en equilibrio</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label for="temperature">Temperatura (°C):</label>
+                    <input type="number" id="temperature" placeholder="25" value="25">
+                </div>
+                
+                <button id="calculate-btn" class="primary-btn"><i class="fas fa-calculator"></i> CALCULAR EQUILIBRIO</button>
+            </div>
+        </div>
+        
+        <div class="results-container">
+            <div class="result-card">
+                <div class="result-header">
+                    <h4>RESULTADO</h4>
+                    <div class="result-value" id="result-value">-</div>
+                </div>
+                <div class="result-body">
+                    <div class="result-equation" id="balanced-equation">-</div>
+                    <div class="detail-item">
+                        <span class="detail-label">Tipo de cálculo:</span>
+                        <span class="detail-value" id="calculation-type">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Temperatura:</span>
+                        <span class="detail-value" id="temperature-value">25°C</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Estado del sistema:</span>
+                        <span class="detail-value" id="system-state">-</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="steps-card">
+                <div class="steps-header">
+                    <h4>PASO A PASO</h4>
+                </div>
+                <div class="steps-body" id="steps-content">
+                    <div class="step">Ingresa una ecuación química y las concentraciones conocidas para ver el proceso de cálculo.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-container" id="ejercicios">
+        <div class="section-header">
+            <h3>Ejercicios <span>Prácticos</span></h3>
+            <p>Problemas resueltos y por resolver sobre equilibrio químico y principio de Le Chatelier</p>
+        </div>
+        
+        <div class="exercises-container">
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <h4>Ejercicio 1: Cálculo de Kc</h4>
+                </div>
+                <div class="exercise-body">
+                    <p>Para la reacción N₂(g) + 3H₂(g) ⇌ 2NH₃(g), en equilibrio se encuentran:</p>
+                    <ul>
+                        <li>[N₂] = 0.5 M</li>
+                        <li>[H₂] = 1.5 M</li>
+                        <li>[NH₃] = 0.8 M</li>
+                    </ul>
+                    <p>Calcula el valor de Kc para esta reacción.</p>
+                    <button class="load-exercise" 
+                                data-equation="N2(g) + 3H2(g) ⇌ 2NH3(g)" 
+                                data-reactants="N2:0.5,H2:1.5" 
+                                data-products="NH3:0.8" 
+                                data-target="Kc">
+                        Cargar ejercicio
+                    </button>
+                </div>
+            </div>
+            
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <h4>Ejercicio 2: Le Chatelier (Concentración)</h4>
+                </div>
+                <div class="exercise-body">
+                    <p>Para el equilibrio: 2SO₂(g) + O₂(g) ⇌ 2SO₃(g) (ΔH = -197 kJ/mol)</p>
+                    <p>Predice el efecto de:</p>
+                    <ol>
+                        <li>Aumentar [SO₂]</li>
+                        <li>Disminuir [SO₃]</li>
+                        <li>Añadir un gas inerte</li>
+                    </ol>
+                    <button class="load-exercise" 
+                                data-equation="2SO2(g) + O2(g) ⇌ 2SO3(g)" 
+                                data-reactants="SO2:1.0,O2:0.5" 
+                                data-products="SO3:0.3" 
+                                data-target="lechatelier"
+                                data-dh="-197">
+                        Analizar equilibrio
+                    </button>
+                </div>
+            </div>
+            
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <h4>Ejercicio 3: Sistema SIS</h4>
+                </div>
+                <div class="exercise-body">
+                    <p>Para el sistema estireno-isopreno-estireno (SIS):</p>
+                    <ol>
+                        <li>Escribe la ecuación de equilibrio</li>
+                        <li>Calcula Kc si [S] = 0.2 M, [I] = 0.3 M, [SIS] = 0.15 M</li>
+                        <li>Analiza el efecto de aumentar temperatura (ΔH > 0)</li>
+                    </ol>
+                    <button class="load-exercise" 
+                                data-equation="2S + I ⇌ SIS" 
+                                data-reactants="S:0.2,I:0.3" 
+                                data-products="SIS:0.15" 
+                                data-target="polimero"
+                                data-dh="25">
+                        Resolver SIS
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-container" id="tabla">
+        <div class="section-header">
+            <h3>Tabla <span>Periódica</span></h3>
+            <p>Consulta las propiedades de los elementos químicos involucrados en tus cálculos</p>
+        </div>
+        
+        <div class="periodic-container">
+            <img src="tabla-periodica.png" alt="Tabla Periódica de los Elementos" class="periodic-table">
+        </div>
+    </section>
+
+    <section class="section-container" id="teoria">
+        <div class="section-header">
+            <h3>Teoría del <span>Equilibrio Químico</span></h3>
+            <p>Conceptos fundamentales y el principio de Le Chatelier</p>
+        </div>
+        
+        <div class="exercises-container">
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <h4>Definición de Equilibrio Químico</h4>
+                </div>
+                <div class="exercise-body">
+                    <p>Estado dinámico donde las velocidades de las reacciones directa e inversa son iguales, manteniendo constantes las concentraciones de reactivos y productos.</p>
+                    <p>Características:</p>
+                    <ul>
+                        <li>Se alcanza en sistemas cerrados a temperatura constante</li>
+                        <li>Es dinámico (las reacciones no se detienen)</li>
+                        <li>Las concentraciones permanecen constantes</li>
+                        <li>Puede ser homogéneo o heterogéneo</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <h4>Constante de Equilibrio (Kc)</h4>
+                </div>
+                <div class="exercise-body">
+                    <p>Para una reacción general:</p>
+                    <p style="text-align: center; font-family: 'Courier New'; margin: 15px 0;">aA + bB &#8647; cC + dD</p>
+                    <p>La expresión de Kc es:</p>
+                    <p style="text-align: center; font-family: 'Courier New'; margin: 15px 0;">Kc = [C]ᶜ[D]ᵈ / [A]ᵃ[B]ᵇ</p>
+                    <p>Donde:</p>
+                    <ul>
+                        <li>Corchetes [] representan concentraciones en equilibrio (mol/L)</li>
+                        <li>Exponentes son los coeficientes estequiométricos</li>
+                        <li>Sólidos y líquidos puros no se incluyen</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <h4>Principio de Le Chatelier</h4>
+                </div>
+                <div class="exercise-body">
+                    <p>"Si un sistema en equilibrio es perturbado, el sistema evolucionará para contrarrestar dicha perturbación y alcanzar un nuevo equilibrio."</p>
+                    <p>Factores que afectan el equilibrio:</p>
+                    <ol>
+                        <li><strong>Concentración:</strong> Aumentar [reactivos] desplaza hacia productos</li>
+                        <li><strong>Presión:</strong> Aumentar P desplaza hacia menor nº de moles gaseosos</li>
+                        <li><strong>Temperatura:</strong> Aumentar T favorece reacción endotérmica</li>
+                        <li><strong>Catalizador:</strong> No afecta la posición de equilibrio</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h5>ChemBalance</h5>
+                <p>Herramienta educativa para el estudio del equilibrio químico y reacciones redox.</p>
+            </div>
+            <div class="footer-col">
+                <h5>Recursos</h5>
+                <ul>
+                    <li><a href="#">Guías de estudio</a></li>
+                    <li><a href="#">Problemas resueltos</a></li>
+                    <li><a href="#">Calculadoras</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Contacto</h5>
+                <ul>
+                    <li><a href="#">Soporte técnico</a></li>
+                    <li><a href="#">Sugerencias</a></li>
+                    <li><a href="#">Reportar error</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 ChemBalance. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <div class="chatbot-toggle">
+        <i class="fas fa-comment-dots"></i>
+    </div>
+    <div class="chatbot-container">
+        <div class="chatbot-header">
+            <h4>Asistente Químico</h4>
+            <button class="close-chatbot" title="Cerrar Chatbot"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chatbot-messages" id="chatbot-messages">
+            <div class="chat-message bot-message">
+                ¡Hola! Soy tu asistente de química. ¿En qué puedo ayudarte con el equilibrio químico o el principio de Le Chatelier?
+            </div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" placeholder="Escribe tu pregunta..." id="chatbot-input">
+            <button id="send-chatbot" title="Enviar Mensaje"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
