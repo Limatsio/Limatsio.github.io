@@ -3,150 +3,327 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Balances Químicos</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
-    <link rel="stylesheet" href="calculadora.css">
+    <title>ChemBalance | Tema 20: Equilibrio Químico y Le Chatelier</title>
+    <link href="https://fonts.googleapis.com/css2?family=Neue+Helvetica:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="CalculadoraH.css">
 </head>
 <body>
-    <div class="app-container">
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo">CHEM<span>BALANCE</span></div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#calculadora" class="active">Calculadora</a></li>
+                    <li><a href="#ejercicios">Ejercicios</a></li>
+                    <li><a href="#tabla">Tabla Periódica</a></li>
+                    <li><a href="#teoria">Teoría</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h2>TEMA 20: <span>Equilibrio Químico y Le Chatelier</span></h2>
+            <p>Herramienta especializada para resolver problemas de equilibrio químico, incluyendo sistemas complejos como estireno-isopreno-estireno</p>
+            <a href="#calculadora" class="hero-btn">COMENZAR</a>
+        </div>
+    </section>
+
+    <section class="section-container" id="calculadora">
+        <div class="section-header">
+            <h3>Calculadora de <span>Equilibrio Químico</span></h3>
+            <p>Ingresa los datos de tu problema de equilibrio químico y obtén la solución paso a paso</p>
+        </div>
 
         <div class="calculator-container">
             <div class="calculator-header">
-                <div class="header-info">
-                    <svg class="calculator-logo" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
-                    </svg>
-                    <h2 class="logo-text">Calculadora de Balances Químicos</h2>
-                </div>
+                <h4>Ingresa los datos del problema</h4>
             </div>
-
+            
+            <div class="calculator-tabs">
+                <div class="calc-tab active" data-tab="standard">Equilibrio estándar</div>
+                <div class="calc-tab" data-tab="lechatelier">Le Chatelier</div>
+                <div class="calc-tab" data-tab="polimeros">Polímeros</div>
+            </div>
+            
             <div class="calculator-body">
-           
-                <div class="input-section">
-                    <div class="input-wrapper">
-                        <input type="text" id="equation-input" placeholder="Ejemplo: H2 + O2 → H2O">
-                        <div class="example-equations">
-                            <span class="example-tag">Ejemplos:</span>
-                            <button class="example-btn" data-equation="H2 + O2 → H2O">H2 + O2 → H2O</button>
-                            <button class="example-btn" data-equation="Fe + O2 → Fe2O3">Fe + O2 → Fe2O3</button>
-                            <button class="example-btn" data-equation="C3H8 + O2 → CO2 + H2O">C3H8 + O2 → CO2 + H2O</button>
-                        </div>
-                    </div>
-                    <button id="calculate-button" class="calculate-btn">
-                        <span class="material-symbols-rounded">calculate</span>
-                        Balancear
-                    </button>
+                <div class="input-group">
+                    <label for="equation">Ecuación química:</label>
+                    <input type="text" id="equation" placeholder="Ej: N2(g) + 3H2(g) ⇌ 2NH3(g)">
                 </div>
                 
-          
-                <div class="results-container">
-                    <div class="result-section">
-                        <div class="section-header">
-                            <h3>Ecuación Balanceada</h3>
-                            <button id="copy-equation" class="icon-btn" title="Copiar ecuación">
-                                <span class="material-symbols-rounded">content_copy</span>
-                            </button>
+                <div class="concentration-inputs">
+                    <div class="input-row">
+                        <label>Reactivos:</label>
+                        <div id="reactants-inputs-container">
+                            <div class="input-pair">
+                                <input type="text" placeholder="Especie" class="species">
+                                <input type="number" placeholder="Conc. (M)" class="concentration">
+                                <button class="remove-btn" title="Eliminar reactivo"><i class="fas fa-times"></i></button>
+                            </div>
                         </div>
-                        <div id="balanced-equation" class="result-box">
-                            <div class="placeholder-text">La ecuación balanceada aparecerá aquí</div>
-                        </div>
+                        <button class="add-btn" id="add-reactant-btn"><i class="fas fa-plus"></i> Añadir reactivo</button>
                     </div>
                     
-                    <div class="steps-section">
-                        <div class="section-header">
-                            <h3>Paso a Paso</h3>
-                            <button id="copy-steps" class="icon-btn" title="Copiar explicación">
-                                <span class="material-symbols-rounded">content_copy</span>
-                            </button>
+                    <div class="input-row">
+                        <label>Productos:</label>
+                        <div id="products-inputs-container">
+                            <div class="input-pair">
+                                <input type="text" placeholder="Especie" class="species">
+                                <input type="number" placeholder="Conc. (M)" class="concentration">
+                                <button class="remove-btn" title="Eliminar producto"><i class="fas fa-times"></i></button>
+                            </div>
                         </div>
-                        <div id="solution-steps" class="steps-box">
-                            <div class="placeholder-text">La explicación detallada del balanceo aparecerá aquí</div>
-                        </div>
+                        <button class="add-btn" id="add-product-btn"><i class="fas fa-plus"></i> Añadir producto</button>
                     </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="calc-target">Calcular:</label>
+                    <select id="calc-target">
+                        <option value="Kc">Constante de equilibrio (Kc)</option>
+                        <option value="concentration">Concentración en equilibrio</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label for="temperature">Temperatura (°C):</label>
+                    <input type="number" id="temperature" placeholder="25" value="25">
+                </div>
+                
+                <button id="calculate-btn" class="primary-btn"><i class="fas fa-calculator"></i> CALCULAR EQUILIBRIO</button>
+            </div>
+        </div>
+        
+        <div class="results-container">
+            <div class="result-card">
+                <div class="result-header">
+                    <h4>RESULTADO</h4>
+                    <div class="result-value" id="result-value">-</div>
+                </div>
+                <div class="result-body">
+                    <div class="result-equation" id="balanced-equation">-</div>
+                    <div class="detail-item">
+                        <span class="detail-label">Tipo de cálculo:</span>
+                        <span class="detail-value" id="calculation-type">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Temperatura:</span>
+                        <span class="detail-value" id="temperature-value">25°C</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Estado del sistema:</span>
+                        <span class="detail-value" id="system-state">-</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="steps-card">
+                <div class="steps-header">
+                    <h4>PASO A PASO</h4>
+                </div>
+                <div class="steps-body" id="steps-content">
+                    <div class="step">Ingresa una ecuación química y las concentraciones conocidas para ver el proceso de cálculo.</div>
                 </div>
             </div>
         </div>
+    </section>
 
-  
-        <div class="support-section periodic-table">
-            <div class="section-header">
-                <h3>Tabla Periódica de Referencia</h3>
-                <button id="toggle-table" class="icon-btn" title="Expandir/Contraer">
-                    <span class="material-symbols-rounded">unfold_more</span>
-                </button>
+    <section class="section-container" id="ejercicios">
+        <div class="section-header">
+            <h3>Ejercicios <span>Prácticos</span></h3>
+            <p>Problemas resueltos y por resolver sobre equilibrio químico y principio de Le Chatelier</p>
+        </div>
+        
+        <div class="exercises-container">
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <h4>Ejercicio 1: Cálculo de Kc</h4>
+                </div>
+                <div class="exercise-body">
+                    <p>Para la reacción N₂(g) + 3H₂(g) ⇌ 2NH₃(g), en equilibrio se encuentran:</p>
+                    <ul>
+                        <li>[N₂] = 0.5 M</li>
+                        <li>[H₂] = 1.5 M</li>
+                        <li>[NH₃] = 0.8 M</li>
+                    </ul>
+                    <p>Calcula el valor de Kc para esta reacción.</p>
+                    <button class="load-exercise" 
+                                data-equation="N2(g) + 3H2(g) ⇌ 2NH3(g)" 
+                                data-reactants="N2:0.5,H2:1.5" 
+                                data-products="NH3:0.8" 
+                                data-target="Kc">
+                        Cargar ejercicio
+                    </button>
+                </div>
             </div>
-            <div class="table-container">
-                <img src="tabla_periodica-negro.png" alt="Tabla Periódica de los Elementos" class="periodic-table-img">
+            
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <h4>Ejercicio 2: Le Chatelier (Concentración)</h4>
+                </div>
+                <div class="exercise-body">
+                    <p>Para el equilibrio: 2SO₂(g) + O₂(g) ⇌ 2SO₃(g) (ΔH = -197 kJ/mol)</p>
+                    <p>Predice el efecto de:</p>
+                    <ol>
+                        <li>Aumentar [SO₂]</li>
+                        <li>Disminuir [SO₃]</li>
+                        <li>Añadir un gas inerte</li>
+                    </ol>
+                    <button class="load-exercise" 
+                                data-equation="2SO2(g) + O2(g) ⇌ 2SO3(g)" 
+                                data-reactants="SO2:1.0,O2:0.5" 
+                                data-products="SO3:0.3" 
+                                data-target="lechatelier"
+                                data-dh="-197">
+                        Analizar equilibrio
+                    </button>
+                </div>
+            </div>
+            
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <h4>Ejercicio 3: Sistema SIS</h4>
+                </div>
+                <div class="exercise-body">
+                    <p>Para el sistema estireno-isopreno-estireno (SIS):</p>
+                    <ol>
+                        <li>Escribe la ecuación de equilibrio</li>
+                        <li>Calcula Kc si [S] = 0.2 M, [I] = 0.3 M, [SIS] = 0.15 M</li>
+                        <li>Analiza el efecto de aumentar temperatura (ΔH > 0)</li>
+                    </ol>
+                    <button class="load-exercise" 
+                                data-equation="2S + I ⇌ SIS" 
+                                data-reactants="S:0.2,I:0.3" 
+                                data-products="SIS:0.15" 
+                                data-target="polimero"
+                                data-dh="25">
+                        Resolver SIS
+                    </button>
+                </div>
             </div>
         </div>
+    </section>
 
-       
-        <div class="support-section faq">
-            <h3>Preguntas Frecuentes</h3>
-            <div class="faq-container">
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>¿Cómo usar esta calculadora?</span>
-                        <span class="material-symbols-rounded">expand_more</span>
-                    </div>
-                    <div class="faq-answer">
-                        Simplemente escribe tu ecuación química en el campo de texto y presiona el botón de enviar. 
-                        La calculadora te mostrará la ecuación balanceada correctamente.
-                    </div>
+    <section class="section-container" id="tabla">
+        <div class="section-header">
+            <h3>Tabla <span>Periódica</span></h3>
+            <p>Consulta las propiedades de los elementos químicos involucrados en tus cálculos</p>
+        </div>
+        
+        <div class="periodic-container">
+            <img src="tabla-periodica.png" alt="Tabla Periódica de los Elementos" class="periodic-table">
+        </div>
+    </section>
+
+    <section class="section-container" id="teoria">
+        <div class="section-header">
+            <h3>Teoría del <span>Equilibrio Químico</span></h3>
+            <p>Conceptos fundamentales y el principio de Le Chatelier</p>
+        </div>
+        
+        <div class="exercises-container">
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <h4>Definición de Equilibrio Químico</h4>
                 </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>¿Qué es un balance químico?</span>
-                        <span class="material-symbols-rounded">expand_more</span>
-                    </div>
-                    <div class="faq-answer">
-                        Es el proceso de ajustar los coeficientes estequiométricos en una ecuación química para que 
-                        el número de átomos de cada elemento sea igual en ambos lados de la ecuación.
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>¿Qué formato de ecuaciones acepta?</span>
-                        <span class="material-symbols-rounded">expand_more</span>
-                    </div>
-                    <div class="faq-answer">
-                        Acepta ecuaciones con fórmulas químicas estándar. Usa "+" para separar compuestos y "→" o "=" 
-                        para separar reactivos de productos.
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>¿Puedo balancear ecuaciones orgánicas?</span>
-                        <span class="material-symbols-rounded">expand_more</span>
-                    </div>
-                    <div class="faq-answer">
-                        Sí, la calculadora puede balancear tanto compuestos inorgánicos como orgánicos, incluyendo 
-                        hidrocarburos y otros compuestos complejos.
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>¿Cómo interpretar los resultados?</span>
-                        <span class="material-symbols-rounded">expand_more</span>
-                    </div>
-                    <div class="faq-answer">
-                        Los números que aparecen delante de las fórmulas son los coeficientes que balancean la ecuación. 
-                        No modifiques los subíndices de las fórmulas.
-                    </div>
+                <div class="exercise-body">
+                    <p>Estado dinámico donde las velocidades de las reacciones directa e inversa son iguales, manteniendo constantes las concentraciones de reactivos y productos.</p>
+                    <p>Características:</p>
+                    <ul>
+                        <li>Se alcanza en sistemas cerrados a temperatura constante</li>
+                        <li>Es dinámico (las reacciones no se detienen)</li>
+                        <li>Las concentraciones permanecen constantes</li>
+                        <li>Puede ser homogéneo o heterogéneo</li>
+                    </ul>
                 </div>
             </div>
+            
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <h4>Constante de Equilibrio (Kc)</h4>
+                </div>
+                <div class="exercise-body">
+                    <p>Para una reacción general:</p>
+                    <p style="text-align: center; font-family: 'Courier New'; margin: 15px 0;">aA + bB &#8647; cC + dD</p>
+                    <p>La expresión de Kc es:</p>
+                    <p style="text-align: center; font-family: 'Courier New'; margin: 15px 0;">Kc = [C]ᶜ[D]ᵈ / [A]ᵃ[B]ᵇ</p>
+                    <p>Donde:</p>
+                    <ul>
+                        <li>Corchetes [] representan concentraciones en equilibrio (mol/L)</li>
+                        <li>Exponentes son los coeficientes estequiométricos</li>
+                        <li>Sólidos y líquidos puros no se incluyen</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <h4>Principio de Le Chatelier</h4>
+                </div>
+                <div class="exercise-body">
+                    <p>"Si un sistema en equilibrio es perturbado, el sistema evolucionará para contrarrestar dicha perturbación y alcanzar un nuevo equilibrio."</p>
+                    <p>Factores que afectan el equilibrio:</p>
+                    <ol>
+                        <li><strong>Concentración:</strong> Aumentar [reactivos] desplaza hacia productos</li>
+                        <li><strong>Presión:</strong> Aumentar P desplaza hacia menor nº de moles gaseosos</li>
+                        <li><strong>Temperatura:</strong> Aumentar T favorece reacción endotérmica</li>
+                        <li><strong>Catalizador:</strong> No afecta la posición de equilibrio</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h5>ChemBalance</h5>
+                <p>Herramienta educativa para el estudio del equilibrio químico y reacciones redox.</p>
+            </div>
+            <div class="footer-col">
+                <h5>Recursos</h5>
+                <ul>
+                    <li><a href="#">Guías de estudio</a></li>
+                    <li><a href="#">Problemas resueltos</a></li>
+                    <li><a href="#">Calculadoras</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Contacto</h5>
+                <ul>
+                    <li><a href="#">Soporte técnico</a></li>
+                    <li><a href="#">Sugerencias</a></li>
+                    <li><a href="#">Reportar error</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 ChemBalance. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <div class="chatbot-toggle">
+        <i class="fas fa-comment-dots"></i>
+    </div>
+    <div class="chatbot-container">
+        <div class="chatbot-header">
+            <h4>Asistente Químico</h4>
+            <button class="close-chatbot" title="Cerrar Chatbot"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chatbot-messages" id="chatbot-messages">
+            <div class="chat-message bot-message">
+                ¡Hola! Soy tu asistente de química. ¿En qué puedo ayudarte con el equilibrio químico o el principio de Le Chatelier?
+            </div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" placeholder="Escribe tu pregunta..." id="chatbot-input">
+            <button id="send-chatbot" title="Enviar Mensaje"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
 
-    
-    <div id="copy-notification" class="copy-notification">
-        ¡Texto copiado al portapapeles!
-    </div>
-
-    <script src="main.js"></script>
+    <script src="CalculadoraH.js"></script>
 </body>
 </html>
